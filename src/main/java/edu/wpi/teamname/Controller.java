@@ -17,14 +17,23 @@ public class Controller implements Initializable {
   public void initialize(URL url, ResourceBundle resourceBundle) {
     Subject subject = new Subject();
 
-    // TODO Create your observers that attach to the subject
+    new HexObserver(subject, hex);
+    new BinaryObserver(subject, binary);
+    new OctalObserver(subject, octal);
 
-    // TODO Need to set the subject state based on what is input in the text field
     number
         .textProperty()
         .addListener(
             observable -> {
-              subject.setState(0);
+              String text = number.getText();
+
+              int parsed_integer = 0;
+              try {
+                parsed_integer = Integer.parseInt(text);
+              } catch (NumberFormatException ignored) {
+              }
+
+              subject.setState(parsed_integer);
             });
   }
 }
